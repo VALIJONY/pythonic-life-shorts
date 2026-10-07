@@ -5,10 +5,10 @@ Every frame is drawn with NumPy, Pillow and OpenCV, and every sound is synthesiz
 
 Code behind the **Pythonic Life** YouTube channel.
 
-| Sorting Race | Can It Escape? | Color War |
-|:---:|:---:|:---:|
-| ![Sorting race](assets/sorting-race.gif) | ![Ring escape](assets/ring-escape.gif) | ![Color war](assets/color-war.gif) |
-| 4 sorting algorithms race on the same 48 numbers | A ball bounces through 12 spinning rings with one gap each | 4 colors fight for territory, and the smallest one is eliminated every 7 s |
+| Sorting Race | Can It Escape? | Color War | Chaos Pendulums |
+|:---:|:---:|:---:|:---:|
+| ![Sorting race](assets/sorting-race.gif) | ![Ring escape](assets/ring-escape.gif) | ![Color war](assets/color-war.gif) | ![Chaos pendulums](assets/chaos-pendulums.gif) |
+| 4 sorting algorithms race on the same 48 numbers | A ball bounces through 12 spinning rings with one gap each | 4 colors fight for territory, and the smallest one is eliminated every 7 s | 150 double pendulums start 0.0000001° apart, then chaos takes over |
 
 ## Quick start
 
@@ -28,6 +28,7 @@ cd 01-sorting-race && python3 sort_race.py
 cd 02-ring-escape  && python3 ring_escape.py 12     # seed = different run
 cd 03-color-war    && python3 color_war.py 3        # seed = different winner
 python3 color_war.py probe                          # list outcomes for 39 seeds
+cd 04-chaos-pendulums && python3 chaos_pendulums.py
 ```
 
 ## The videos
@@ -44,6 +45,11 @@ Escaping a ring shatters it into particles. Change the seed and you get a comple
 A pong-wars style territory battle with a battle-royale twist:
 the smallest territory is eliminated every 7 seconds, survivors get an extra ball, and the final duel speeds up.
 With seed `3`, RED wins by a single cell (473 vs 472).
+
+### 04 — Chaos Pendulums
+150 double pendulums, integrated with RK4 at 600 steps per second, start from the same position with
+neighbours differing by 0.0000001°. For 12 seconds they move as one white pendulum. Then the butterfly effect
+splits them into a rainbow. Audio: a tension pulse that speeds up before the split, then a cascade of chimes.
 
 ## How it works
 
