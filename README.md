@@ -10,10 +10,10 @@ Code behind the **Pythonic Life** YouTube channel.
 | ![Sorting race](assets/sorting-race.gif) | ![Ring escape](assets/ring-escape.gif) | ![Color war](assets/color-war.gif) |
 | 4 sorting algorithms race on the same 48 numbers | A ball bounces through 12 spinning rings with one gap each | 4 colors fight for territory, and the smallest one is eliminated every 7 s |
 
-| Chaos Pendulums | Fourier Mystery |
-|:---:|:---:|
-| ![Chaos pendulums](assets/chaos-pendulums.gif) | ![Fourier mystery](assets/fourier-mystery.gif) |
-| 150 double pendulums start 0.0000001° apart, then chaos takes over | 180 rotating circles draw a mystery shape, revealed at the end |
+| Chaos Pendulums | Fourier Mystery | Talking Py |
+|:---:|:---:|:---:|
+| ![Chaos pendulums](assets/chaos-pendulums.gif) | ![Fourier mystery](assets/fourier-mystery.gif) | ![Talking Py](assets/talking-py.gif) |
+| 150 double pendulums start 0.0000001° apart, then chaos takes over | 180 rotating circles draw a mystery shape, revealed at the end | Py the snake explains 3 Python tricks with lip-sync, captions and code cards |
 
 ## Quick start
 
@@ -35,6 +35,7 @@ cd 03-color-war    && python3 color_war.py 3        # seed = different winner
 python3 color_war.py probe                          # list outcomes for 39 seeds
 cd 04-chaos-pendulums && python3 chaos_pendulums.py
 cd 05-fourier-mystery && python3 fourier_mystery.py
+cd 06-talking-py && pip install piper-tts && python3 talking_py.py path/to/en-us-lessac-medium.onnx
 ```
 
 ## The videos
@@ -62,6 +63,13 @@ A closed outline (a python, built from a sinuous centreline with a head and fork
 2048 points and turned into a Fourier series with `np.fft.fft`. The 180 largest terms become a chain of rotating
 circles whose tip redraws the shape. The melody follows the height of the pen. The bonus section shows the same
 drawing with only 3, 12 and 50 circles.
+
+### 06 — Talking Py
+A cartoon snake mascot drawn entirely with Pillow (2× supersampled) explains "3 Python tricks that feel illegal".
+The voice comes from [Piper](https://github.com/rhasspy/piper), an offline neural TTS
+(voice `en-us-lessac-medium` from the Piper v0.0.2 release). Mouth opening follows the voice's RMS envelope,
+captions highlight word by word, code cards type themselves with syntax highlighting,
+and a lo-fi beat is ducked under the voice.
 
 ## How it works
 
