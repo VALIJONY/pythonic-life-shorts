@@ -15,6 +15,11 @@ Code behind the **Pythonic Life** YouTube channel.
 | ![Chaos pendulums](assets/chaos-pendulums.gif) | ![Fourier mystery](assets/fourier-mystery.gif) | ![Talking Py](assets/talking-py.gif) |
 | 150 double pendulums start 0.0000001° apart, then chaos takes over | 180 rotating circles draw a mystery shape, revealed at the end | Py the snake explains 3 Python tricks with lip-sync, captions and code cards |
 
+| Infinite Zoom |
+|:---:|
+| ![Infinite zoom](assets/infinite-zoom.gif) |
+| A 1,000,000,000,000× zoom into the Mandelbrot set, ending on a hidden mini copy |
+
 ## Quick start
 
 ```bash
@@ -36,6 +41,7 @@ python3 color_war.py probe                          # list outcomes for 39 seeds
 cd 04-chaos-pendulums && python3 chaos_pendulums.py
 cd 05-fourier-mystery && python3 fourier_mystery.py
 cd 06-talking-py && pip install piper-tts && python3 talking_py.py path/to/en-us-lessac-medium.onnx
+cd 07-infinite-zoom && pip install numba && python3 infinite_zoom.py   # ~20-30 min on 2 cores
 ```
 
 ## The videos
@@ -70,6 +76,13 @@ The voice comes from [Piper](https://github.com/rhasspy/piper), an offline neura
 (voice `en-us-lessac-medium` from the Piper v0.0.2 release). Mouth opening follows the voice's RMS envelope,
 captions highlight word by word, code cards type themselves with syntax highlighting,
 and a lo-fi beat is ducked under the voice.
+
+### 07 — Infinite Zoom
+A trillion-times zoom into the Mandelbrot set (`z = z² + c`) at the "seahorse valley" point.
+Each frame is computed in float64 with a parallel Numba kernel at 540×960 and upscaled, with smooth
+(continuous) colouring through a cosine palette that slowly drifts. Iteration count grows with depth (up to ~2,800).
+Milestones translate the zoom into real distances, the final frame circles a mini copy of the whole set,
+and the ending flies back out to the start in one second.
 
 ## How it works
 
