@@ -20,6 +20,11 @@ Code behind the **Pythonic Life** YouTube channel.
 | ![Infinite zoom](assets/infinite-zoom.gif) |
 | A 1,000,000,000,000× zoom into the Mandelbrot set, ending on a hidden mini copy |
 
+| Plinko Race |
+|:---:|
+| ![Plinko race](assets/plinko-race.gif) |
+| Pick a number 1-9: balls fall through pegs, first bucket to 60 wins, and a bell curve appears |
+
 ## Quick start
 
 ```bash
@@ -42,6 +47,7 @@ cd 04-chaos-pendulums && python3 chaos_pendulums.py
 cd 05-fourier-mystery && python3 fourier_mystery.py
 cd 06-talking-py && pip install piper-tts && python3 talking_py.py path/to/en-us-lessac-medium.onnx
 cd 07-infinite-zoom && pip install numba && python3 infinite_zoom.py   # ~20-30 min on 2 cores
+cd 08-plinko-race && python3 plinko_race.py 14                      # seed = different race; `probe` scans seeds
 ```
 
 ## The videos
@@ -83,6 +89,12 @@ Each frame is computed in float64 with a parallel Numba kernel at 540×960 and u
 (continuous) colouring through a cosine palette that slowly drifts. Iteration count grows with depth (up to ~2,800).
 Milestones translate the zoom into real distances, the final frame circles a mini copy of the whole set,
 and the ending flies back out to the start in one second.
+
+### 08 — Plinko Race
+A Galton board: ball–peg collisions are solved with NumPy (restitution 0.3, horizontal air drag, tiny jitter),
+and balls are counted into 9 buckets. The first bucket to 60 balls wins. With these settings the buckets fill in
+a bell-shaped distribution (middle ~25% each, edges ~3-5%). `python3 plinko_race.py probe` scans 40 seeds so you can pick
+a close finish (seed 14: 60 vs 59 vs 57, and the winner is not the centre bucket).
 
 ## How it works
 
