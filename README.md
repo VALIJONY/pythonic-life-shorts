@@ -25,6 +25,11 @@ Code behind the **Pythonic Life** YouTube channel.
 | ![Plinko race](assets/plinko-race.gif) |
 | Pick a number 1-9: balls fall through pegs, first bucket to 60 wins, and a bell curve appears |
 
+| Pick a Car |
+|:---:|
+| ![Car race](assets/car-race.gif) |
+| 6 cars, 3 laps, 1 winner: top-down racing sim with overtakes, spin-outs and a photo finish |
+
 ## Quick start
 
 ```bash
@@ -48,6 +53,7 @@ cd 05-fourier-mystery && python3 fourier_mystery.py
 cd 06-talking-py && pip install piper-tts && python3 talking_py.py path/to/en-us-lessac-medium.onnx
 cd 07-infinite-zoom && pip install numba && python3 infinite_zoom.py   # ~20-30 min on 2 cores
 cd 08-plinko-race && python3 plinko_race.py 14                      # seed = different race; `probe` scans seeds
+cd 09-car-race && python3 car_race.py 37                           # seed = different race; `probe` scans 60 seeds
 ```
 
 ## The videos
@@ -95,6 +101,15 @@ A Galton board: ball–peg collisions are solved with NumPy (restitution 0.3, ho
 and balls are counted into 9 buckets. The first bucket to 60 balls wins. With these settings the buckets fill in
 a bell-shaped distribution (middle ~25% each, edges ~3-5%). `python3 plinko_race.py probe` scans 40 seeds so you can pick
 a close finish (seed 14: 60 vs 59 vs 57, and the winner is not the centre bucket).
+
+### 09 — Pick a Car
+A top-down racing simulation: 6 cars on a closed, never self-crossing circuit (a polar curve with 4 harmonics,
+resampled by arc length). Each car brakes for upcoming corners (speed limit from curvature), gets slipstream
+bonus behind another car, random boosts and an occasional spin-out. A light rubber-band catch-up keeps the pack
+together, so the race stays close (this is a game-style simulation, not a physical model of real cars).
+Passes use a sticky order (a car must be 18 px ahead) so lead changes are real, not flicker.
+Engines are 6 sawtooth voices whose pitch follows each car's speed. `python3 car_race.py probe` scans 60 seeds;
+seed 37 ends with YELLOW winning by 0.05 s after 17 passes in the top 3.
 
 ## How it works
 
