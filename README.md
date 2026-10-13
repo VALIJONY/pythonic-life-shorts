@@ -30,6 +30,11 @@ Code behind the **Pythonic Life** YouTube channel.
 | ![Car race](assets/car-race.gif) |
 | 6 cars, 3 laps, 1 winner: top-down racing sim with overtakes, spin-outs and a photo finish |
 
+| Pick a Marble |
+|:---:|
+| ![Marble race](assets/marble-race.gif) |
+| 6 marbles fall through pegs, ramps, spinning bars, a funnel and bumpers; the video loops back to its first frame |
+
 ## Quick start
 
 ```bash
@@ -54,6 +59,7 @@ cd 06-talking-py && pip install piper-tts && python3 talking_py.py path/to/en-us
 cd 07-infinite-zoom && pip install numba && python3 infinite_zoom.py   # ~20-30 min on 2 cores
 cd 08-plinko-race && python3 plinko_race.py 14                      # seed = different race; `probe` scans seeds
 cd 09-car-race && python3 car_race.py 37                           # seed = different race; `probe` scans 60 seeds
+cd 10-marble-race && python3 marble_race.py 1                      # seed = different race; `probe` scans 60 seeds
 ```
 
 ## The videos
@@ -110,6 +116,13 @@ together, so the race stays close (this is a game-style simulation, not a physic
 Passes use a sticky order (a car must be 18 px ahead) so lead changes are real, not flicker.
 Engines are 6 sawtooth voices whose pitch follows each car's speed. `python3 car_race.py probe` scans 60 seeds;
 seed 37 ends with YELLOW winning by 0.05 s after 17 passes in the top 3.
+
+### 10 — Pick a Marble
+A 4,000 px tall course with pegs, zig-zag ramps, rotating bars, a narrow funnel and bumpers. Six marbles are simulated
+at 240 steps per second (marble-marble, peg, moving-segment and bumper collisions) and a camera follows the leader.
+The video is built for retention: 18 s long, motion and the "pick 1-6" prompt from the very first frame, and the last
+frame crossfades into the first so it loops. `python3 marble_race.py probe` scans 60 seeds for a close finish where the
+winner was last at some point; seed 1: marble 3 wins by 0.13 s after being last place.
 
 ## How it works
 
