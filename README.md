@@ -5,35 +5,17 @@ Every frame is drawn with NumPy, Pillow and OpenCV, and every sound is synthesiz
 
 Code behind the **Pythonic Life** YouTube channel.
 
-| Sorting Race | Can It Escape? | Color War |
-|:---:|:---:|:---:|
-| ![Sorting race](assets/sorting-race.gif) | ![Ring escape](assets/ring-escape.gif) | ![Color war](assets/color-war.gif) |
-| 4 sorting algorithms race on the same 48 numbers | A ball bounces through 12 spinning rings with one gap each | 4 colors fight for territory, and the smallest one is eliminated every 7 s |
+![Python](https://img.shields.io/badge/100%25-Python-3776AB?logo=python&logoColor=white) ![Shorts](https://img.shields.io/badge/videos-10-red) ![License](https://img.shields.io/badge/license-MIT-green)
 
-| Chaos Pendulums | Fourier Mystery | Talking Py |
-|:---:|:---:|:---:|
-| ![Chaos pendulums](assets/chaos-pendulums.gif) | ![Fourier mystery](assets/fourier-mystery.gif) | ![Talking Py](assets/talking-py.gif) |
-| 150 double pendulums start 0.0000001° apart, then chaos takes over | 180 rotating circles draw a mystery shape, revealed at the end | Py the snake explains 3 Python tricks with lip-sync, captions and code cards |
+| **01 · Sorting Race** | **02 · Can It Escape?** | **03 · Color War** | **04 · Chaos Pendulums** | **05 · Fourier Mystery** |
+|:---:|:---:|:---:|:---:|:---:|
+| <img src="assets/sorting-race.gif" width="160" alt="Sorting Race"> | <img src="assets/ring-escape.gif" width="160" alt="Can It Escape?"> | <img src="assets/color-war.gif" width="160" alt="Color War"> | <img src="assets/chaos-pendulums.gif" width="160" alt="Chaos Pendulums"> | <img src="assets/fourier-mystery.gif" width="160" alt="Fourier Mystery"> |
+| <sub>4 algorithms, 1 race</sub> | <sub>12 rings, 1 gap each</sub> | <sub>4 colors fight for land</sub> | <sub>150 pendulums, pure chaos</sub> | <sub>180 circles, 1 hidden shape</sub> |
 
-| Infinite Zoom |
-|:---:|
-| ![Infinite zoom](assets/infinite-zoom.gif) |
-| A 1,000,000,000,000× zoom into the Mandelbrot set, ending on a hidden mini copy |
-
-| Plinko Race |
-|:---:|
-| ![Plinko race](assets/plinko-race.gif) |
-| Pick a number 1-9: balls fall through pegs, first bucket to 60 wins, and a bell curve appears |
-
-| Pick a Car |
-|:---:|
-| ![Car race](assets/car-race.gif) |
-| 6 cars, 3 laps, 1 winner: top-down racing sim with overtakes, spin-outs and a photo finish |
-
-| Pick a Marble |
-|:---:|
-| ![Marble race](assets/marble-race.gif) |
-| 6 marbles fall through pegs, ramps, spinning bars, a funnel and bumpers; the video loops back to its first frame |
+| **06 · Talking Py** | **07 · Infinite Zoom** | **08 · Plinko Race** | **09 · Pick a Car** | **10 · Pick a Marble** |
+|:---:|:---:|:---:|:---:|:---:|
+| <img src="assets/talking-py.gif" width="160" alt="Talking Py"> | <img src="assets/infinite-zoom.gif" width="160" alt="Infinite Zoom"> | <img src="assets/plinko-race.gif" width="160" alt="Plinko Race"> | <img src="assets/car-race.gif" width="160" alt="Pick a Car"> | <img src="assets/marble-race.gif" width="160" alt="Pick a Marble"> |
+| <sub>A snake explains 3 tricks</sub> | <sub>A trillion-times zoom</sub> | <sub>Pick 1-9, first to 60</sub> | <sub>6 cars, 1 photo finish</sub> | <sub>6 marbles, loops forever</sub> |
 
 ## Quick start
 
