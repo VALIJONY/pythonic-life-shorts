@@ -5,7 +5,7 @@ Every frame is drawn with NumPy, Pillow and OpenCV, and every sound is synthesiz
 
 Code behind the **Pythonic Life** YouTube channel.
 
-![Python](https://img.shields.io/badge/100%25-Python-3776AB?logo=python&logoColor=white) ![Shorts](https://img.shields.io/badge/videos-10-red) ![License](https://img.shields.io/badge/license-MIT-green)
+![Python](https://img.shields.io/badge/100%25-Python-3776AB?logo=python&logoColor=white) ![Shorts](https://img.shields.io/badge/videos-11-red) ![License](https://img.shields.io/badge/license-MIT-green)
 
 | **01 · Sorting Race** | **02 · Can It Escape?** | **03 · Color War** |
 |:---:|:---:|:---:|
@@ -17,9 +17,9 @@ Code behind the **Pythonic Life** YouTube channel.
 | **07 · Infinite Zoom** | **08 · Plinko Race** | **09 · Pick a Car** |
 | <img src="assets/infinite-zoom.gif" width="270" alt="Infinite Zoom"> | <img src="assets/plinko-race.gif" width="270" alt="Plinko Race"> | <img src="assets/car-race.gif" width="270" alt="Pick a Car"> |
 | <sub>A 1,000,000,000,000× Mandelbrot zoom</sub> | <sub>Pick a number 1-9: first bucket to 60 balls wins</sub> | <sub>6 cars, 3 laps, 1 photo finish</sub> |
-| **10 · Pick a Marble** | &nbsp; | &nbsp; |
-| <img src="assets/marble-race.gif" width="270" alt="Pick a Marble"> | &nbsp; | &nbsp; |
-| <sub>6 marbles race down a course and the video loops</sub> | &nbsp; | &nbsp; |
+| **10 · Pick a Marble** | **11 · Urgent Task** | &nbsp; |
+| <img src="assets/marble-race.gif" width="270" alt="Pick a Marble"> | <img src="assets/urgent-task.gif" width="270" alt="Urgent Task"> | &nbsp; |
+| <sub>6 marbles race down a course and the video loops</sub> | <sub>Boss: sort 1,200 files in 10 min. Python: a fraction of a second</sub> | &nbsp; |
 
 ## Quick start
 
@@ -46,6 +46,7 @@ cd 07-infinite-zoom && pip install numba && python3 infinite_zoom.py   # ~20-30 
 cd 08-plinko-race && python3 plinko_race.py 14                      # seed = different race; `probe` scans seeds
 cd 09-car-race && python3 car_race.py 37                           # seed = different race; `probe` scans 60 seeds
 cd 10-marble-race && python3 marble_race.py 1                      # seed = different race; `probe` scans 60 seeds
+cd 11-urgent-task && python3 urgent_task.py                         # runs the sorting code for real and times it
 ```
 
 ## The videos
@@ -109,6 +110,13 @@ at 240 steps per second (marble-marble, peg, moving-segment and bumper collision
 The video is built for retention: 18 s long, motion and the "pick 1-6" prompt from the very first frame, and the last
 frame crossfades into the first so it loops. `python3 marble_race.py probe` scans 60 seeds for a close finish where the
 winner was last at some point; seed 1: marble 3 wins by 0.13 s after being last place.
+
+### 11 — Urgent Task
+A boss message ("sort ALL 1,200 files, you have 10 minutes"), a messy Downloads grid and a terminal that types
+the real sorting script. The script shown on screen is executed for real on 1,200 generated files: the timing
+(median of 6 runs) and the per-folder counts in the video are measured, not invented. The file swarm is an animation
+of that run (the stopwatch is shown in slow motion). The look is flat and crisp, with no glow or blur overlay,
+and all key content stays inside the YouTube Shorts safe zones.
 
 ## How it works
 
