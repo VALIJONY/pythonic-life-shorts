@@ -3,3 +3,7 @@
 __pycache__/
 chk*/
 probe*.txt
+*.mp3
+audio/
+music/
+tts_tmp/
