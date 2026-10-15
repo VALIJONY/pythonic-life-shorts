@@ -2,3 +2,4 @@ numpy
 pillow
 opencv-python
 numba  # only for 07-infinite-zoom
+piper-tts

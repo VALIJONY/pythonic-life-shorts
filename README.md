@@ -46,7 +46,7 @@ cd 07-infinite-zoom && pip install numba && python3 infinite_zoom.py   # ~20-30 
 cd 08-plinko-race && python3 plinko_race.py 14                      # seed = different race; `probe` scans seeds
 cd 09-car-race && python3 car_race.py 37                           # seed = different race; `probe` scans 60 seeds
 cd 10-marble-race && python3 marble_race.py 1                      # seed = different race; `probe` scans 60 seeds
-cd 11-urgent-task && python3 urgent_task.py                         # runs the sorting code for real and times it
+cd 11-urgent-task && pip install piper-tts && python3 urgent_task.py en-us-lessac-medium.onnx en-us-ryan-high.onnx   # worker + boss voices
 ```
 
 ## The videos
@@ -112,11 +112,11 @@ frame crossfades into the first so it loops. `python3 marble_race.py probe` scan
 winner was last at some point; seed 1: marble 3 wins by 0.13 s after being last place.
 
 ### 11 — Urgent Task
-A boss message ("sort ALL 1,200 files, you have 10 minutes"), a messy Downloads grid and a terminal that types
-the real sorting script. The script shown on screen is executed for real on 1,200 generated files: the timing
-(median of 6 runs) and the per-folder counts in the video are measured, not invented. The file swarm is an animation
-of that run (the stopwatch is shown in slow motion). The look is flat and crisp, with no glow or blur overlay,
-and all key content stays inside the YouTube Shorts safe zones.
+A boss and a stressed worker in an office, both drawn in code and lip-synced to two offline Piper voices
+(worker: lessac, boss: ryan; voices from the rhasspy/piper v0.0.2 release), with word-by-word captions.
+The boss demands 1,200 files sorted in 10 minutes; the worker answers "Python, it's very easy" and a terminal types
+the real sorting script. That script is executed for real on 1,200 generated files: the timing (median of runs) and
+per-folder counts are measured, not invented. Flat, crisp look, no glow, and key content stays inside the Shorts safe zones.
 
 ## How it works
 
