@@ -105,8 +105,9 @@ def tts(text, voice, path, length_scale=1.0, pitch=1.0, gain=1.0):
     n = int(len(x) * SR / sr0 / pitch)
     return finish(np.interp(np.linspace(0, len(x) - 1, n), np.arange(len(x)), x), gain)
 
-def load_ext(path, gain=1.0):
-    r = subprocess.run(["ffmpeg", "-loglevel", "error", "-i", path, "-ac", "1", "-ar", str(SR), "-f", "f32le", "-"], capture_output=True, check=True)
+TEMPO = float(os.environ.get("TEMPO", "1.2"))                    # ElevenLabs reads a little slowly for a Short: pitch-preserving speed-up
+def load_ext(path, gain=1.0, tempo=1.0):
+    r = subprocess.run(["ffmpeg", "-loglevel", "error", "-i", path, "-af", f"atempo={tempo}", "-ac", "1", "-ar", str(SR), "-f", "f32le", "-"], capture_output=True, check=True)
     return finish(np.frombuffer(r.stdout, np.float32).copy(), gain)
 
 LINES = [
@@ -122,7 +123,7 @@ WAVS, EXT = [], []
 for i, (who, txt, kw) in enumerate(LINES):
     ext = [p for p in glob.glob(os.path.join(HERE, "audio", f"l{i}.*")) if p.lower().endswith((".mp3", ".wav", ".m4a"))]
     EXT.append(bool(ext))
-    WAVS.append(load_ext(ext[0], kw.get("gain", 1.0)) if ext else tts(txt, VOICE_BOSS if who == "boss" else VOICE_ME, f"tts_tmp/l{i}.wav", **kw))
+    WAVS.append(load_ext(ext[0], kw.get("gain", 1.0), 1.0 if i == 5 else TEMPO) if ext else tts(txt, VOICE_BOSS if who == "boss" else VOICE_ME, f"tts_tmp/l{i}.wav", **kw))
 DUR = [len(w) / SR for w in WAVS]
 print("voice lines:", [round(d, 2) for d in DUR], "external:", EXT, flush=True)
 

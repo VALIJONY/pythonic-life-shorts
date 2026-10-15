@@ -5,7 +5,7 @@ Every frame is drawn with NumPy, Pillow and OpenCV, and every sound is synthesiz
 
 Code behind the **Pythonic Life** YouTube channel.
 
-![Python](https://img.shields.io/badge/100%25-Python-3776AB?logo=python&logoColor=white) ![Shorts](https://img.shields.io/badge/videos-11-red) ![License](https://img.shields.io/badge/license-MIT-green)
+![Python](https://img.shields.io/badge/100%25-Python-3776AB?logo=python&logoColor=white) ![Shorts](https://img.shields.io/badge/videos-12-red) ![License](https://img.shields.io/badge/license-MIT-green)
 
 | **01 · Sorting Race** | **02 · Can It Escape?** | **03 · Color War** |
 |:---:|:---:|:---:|
@@ -18,7 +18,7 @@ Code behind the **Pythonic Life** YouTube channel.
 | <img src="assets/infinite-zoom.gif" width="270" alt="Infinite Zoom"> | <img src="assets/plinko-race.gif" width="270" alt="Plinko Race"> | <img src="assets/car-race.gif" width="270" alt="Pick a Car"> |
 | <sub>A 1,000,000,000,000× Mandelbrot zoom</sub> | <sub>Pick a number 1-9: first bucket to 60 balls wins</sub> | <sub>6 cars, 3 laps, 1 photo finish</sub> |
 | **10 · Pick a Marble** | **11 · Urgent Task** | &nbsp; |
-| <img src="assets/marble-race.gif" width="270" alt="Pick a Marble"> | <img src="assets/urgent-task.gif" width="270" alt="Urgent Task"> | &nbsp; |
+| <img src="assets/marble-race.gif" width="270" alt="Pick a Marble"> | <img src="assets/urgent-task.gif" width="270" alt="Urgent Task"> | <img src="assets/excel-cleanup.gif" width="270" alt="Excel Cleanup"> |
 | <sub>6 marbles race down a course and the video loops</sub> | <sub>Boss: sort 1,200 files in 10 min. Python: a fraction of a second</sub> | &nbsp; |
 
 ## Quick start
@@ -47,6 +47,7 @@ cd 08-plinko-race && python3 plinko_race.py 14                      # seed = dif
 cd 09-car-race && python3 car_race.py 37                           # seed = different race; `probe` scans 60 seeds
 cd 10-marble-race && python3 marble_race.py 1                      # seed = different race; `probe` scans 60 seeds
 cd 11-urgent-task && pip install piper-tts && python3 urgent_task.py en-us-lessac-medium.onnx en-us-ryan-high.onnx   # worker + boss voices
+cd 12-excel-cleanup && pip install pandas openpyxl && python3 excel_cleanup.py en-us-lessac-medium.onnx en-us-ryan-high.onnx   # audio/l0..l5.mp3 optional
 ```
 
 ## The videos
@@ -117,6 +118,13 @@ A boss and a stressed worker in an office, both drawn in code and lip-synced to 
 The boss demands 1,200 files sorted in 10 minutes; the worker answers "Python, it's very easy" and a terminal types
 the real sorting script. That script is executed for real on 1,200 generated files: the timing (median of runs) and
 per-folder counts are measured, not invented. Flat, crisp look, no glow, and key content stays inside the Shorts safe zones.
+
+### 12 — Excel Cleanup
+Three scenes: the boss and the worker argue above a messy spreadsheet, then an avatar-free full-screen code window
+cleans 5,000 generated rows (duplicates, three date formats, three phone formats) with seven lines of pandas, and the
+avatars return for a one-word "Wow." The code on screen is executed for real in a fresh Python process (pandas import included,
+median of 5 runs); the before/after rows and counters come from that run. "By hand" time is a labelled estimate (3 s per row).
+Voices: ElevenLabs mp3s put in `audio/l0.mp3 ... l5.mp3` (Piper placeholders otherwise); optional music in `music/` (not committed).
 
 ## How it works
 
