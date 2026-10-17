@@ -19,7 +19,7 @@ Code behind the **Pythonic Life** YouTube channel.
 | <sub>A 1,000,000,000,000× Mandelbrot zoom</sub> | <sub>Pick a number 1-9: first bucket to 60 balls wins</sub> | <sub>6 cars, 3 laps, 1 photo finish</sub> |
 | **10 · Pick a Marble** | **11 · Urgent Task** | &nbsp; |
 | <img src="assets/marble-race.gif" width="270" alt="Pick a Marble"> | <img src="assets/urgent-task.gif" width="270" alt="Urgent Task"> | <img src="assets/excel-cleanup.gif" width="270" alt="Excel Cleanup"> |
-| <img src="assets/rps-vs-python.gif" width="270" alt="Rock Paper Scissors vs Python"> | <img src="assets/ring-escape.gif" width="270" alt="Ring Escape"> | &nbsp; |
+| <img src="assets/rps-vs-python.gif" width="270" alt="Rock Paper Scissors vs Python"> | <img src="assets/triple-ring-escape.gif" width="270" alt="Triple Ring Escape"> | &nbsp; |
 | <sub>6 marbles race down a course and the video loops</sub> | <sub>Boss: sort 1,200 files in 10 min. Python: a fraction of a second</sub> | &nbsp; |
 
 ## Quick start
