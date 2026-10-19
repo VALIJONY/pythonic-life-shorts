@@ -5,7 +5,7 @@ Every frame is drawn with NumPy, Pillow and OpenCV, and every sound is synthesiz
 
 Code behind the **Pythonic Life** YouTube channel.
 
-![Python](https://img.shields.io/badge/100%25-Python-3776AB?logo=python&logoColor=white) ![Shorts](https://img.shields.io/badge/videos-14-red) ![License](https://img.shields.io/badge/license-MIT-green)
+![Python](https://img.shields.io/badge/100%25-Python-3776AB?logo=python&logoColor=white) ![Shorts](https://img.shields.io/badge/videos-15-red) ![License](https://img.shields.io/badge/license-MIT-green)
 
 | **01 · Sorting Race** | **02 · Can It Escape?** | **03 · Color War** |
 |:---:|:---:|:---:|
@@ -19,7 +19,7 @@ Code behind the **Pythonic Life** YouTube channel.
 | <sub>A 1,000,000,000,000× Mandelbrot zoom</sub> | <sub>Pick a number 1-9: first bucket to 60 balls wins</sub> | <sub>6 cars, 3 laps, 1 photo finish</sub> |
 | **10 · Pick a Marble** | **11 · Urgent Task** | &nbsp; |
 | <img src="assets/marble-race.gif" width="270" alt="Pick a Marble"> | <img src="assets/urgent-task.gif" width="270" alt="Urgent Task"> | <img src="assets/excel-cleanup.gif" width="270" alt="Excel Cleanup"> |
-| <img src="assets/rps-vs-python.gif" width="270" alt="Rock Paper Scissors vs Python"> | <img src="assets/triple-ring-escape.gif" width="270" alt="Triple Ring Escape"> | &nbsp; |
+| <img src="assets/rps-vs-python.gif" width="270" alt="Rock Paper Scissors vs Python"> | <img src="assets/triple-ring-escape.gif" width="270" alt="Triple Ring Escape"> | <img src="assets/snake-battle.gif" width="270" alt="Snake Battle Royale"> |
 | <sub>6 marbles race down a course and the video loops</sub> | <sub>Boss: sort 1,200 files in 10 min. Python: a fraction of a second</sub> | &nbsp; |
 
 ## Quick start
@@ -51,6 +51,7 @@ cd 11-urgent-task && pip install piper-tts && python3 urgent_task.py en-us-lessa
 cd 12-excel-cleanup && pip install pandas openpyxl && python3 excel_cleanup.py en-us-lessac-medium.onnx en-us-ryan-high.onnx   # audio/l0..l5.mp3 optional
 cd 13-rock-paper-scissors && python3 rps.py          # play (tkinter); `python3 rps.py video` renders the Short
 cd 14-ring-escape && python3 ring_escape.py
+cd 15-snake-battle && python3 snake_battle.py
 ```
 
 ## The videos
@@ -142,6 +143,13 @@ Real physics (gravity, elastic wall and ball-to-ball collisions, 8 sub-steps per
 lasts about 15 s and the winner comes from behind. Every wall bounce plays the next note of an original A-minor
 pentatonic melody, ring passes get a rising chime, and a riser leads into the win. Dots under each ball show how many
 rings it has escaped.
+
+### 15 — Snake Battle Royale
+Four AI snakes race for apples on a 25x30 grid while a battle-royale zone closes in; the last snake alive wins.
+The AI is a few lines: go to the nearest apple, never into a wall or a body, and skip moves whose flood-fill free
+space is smaller than the snake. Dead snakes turn into food, the zone cuts off any tail left outside. The seed is
+picked so the match ends at ~14 s and the leader four seconds before the end does not win. 18 steps per second,
+smoothly interpolated; every snake has its own apple-pop scale, crashes and zone pulses are synthesized too.
 
 ## How it works
 
