@@ -5,7 +5,7 @@ Every frame is drawn with NumPy, Pillow and OpenCV, and every sound is synthesiz
 
 Code behind the **Pythonic Life** YouTube channel.
 
-![Python](https://img.shields.io/badge/100%25-Python-3776AB?logo=python&logoColor=white) ![Shorts](https://img.shields.io/badge/videos-15-red) ![License](https://img.shields.io/badge/license-MIT-green)
+![Python](https://img.shields.io/badge/100%25-Python-3776AB?logo=python&logoColor=white) ![Shorts](https://img.shields.io/badge/videos-16-red) ![License](https://img.shields.io/badge/license-MIT-green)
 
 | **01 · Sorting Race** | **02 · Can It Escape?** | **03 · Color War** |
 |:---:|:---:|:---:|
@@ -20,6 +20,7 @@ Code behind the **Pythonic Life** YouTube channel.
 | **10 · Pick a Marble** | **11 · Urgent Task** | &nbsp; |
 | <img src="assets/marble-race.gif" width="270" alt="Pick a Marble"> | <img src="assets/urgent-task.gif" width="270" alt="Urgent Task"> | <img src="assets/excel-cleanup.gif" width="270" alt="Excel Cleanup"> |
 | <img src="assets/rps-vs-python.gif" width="270" alt="Rock Paper Scissors vs Python"> | <img src="assets/triple-ring-escape.gif" width="270" alt="Triple Ring Escape"> | <img src="assets/snake-battle.gif" width="270" alt="Snake Battle Royale"> |
+| <img src="assets/brick-race.gif" width="270" alt="Brick Breaker Race"> | &nbsp; | &nbsp; |
 | <sub>6 marbles race down a course and the video loops</sub> | <sub>Boss: sort 1,200 files in 10 min. Python: a fraction of a second</sub> | &nbsp; |
 
 ## Quick start
@@ -52,6 +53,7 @@ cd 12-excel-cleanup && pip install pandas openpyxl && python3 excel_cleanup.py e
 cd 13-rock-paper-scissors && python3 rps.py          # play (tkinter); `python3 rps.py video` renders the Short
 cd 14-ring-escape && python3 ring_escape.py
 cd 15-snake-battle && python3 snake_battle.py
+cd 16-brick-race && python3 brick_race.py
 ```
 
 ## The videos
@@ -150,6 +152,12 @@ The AI is a few lines: go to the nearest apple, never into a wall or a body, and
 space is smaller than the snake. Dead snakes turn into food, the zone cuts off any tail left outside. The seed is
 picked so the match ends at ~14 s and the leader four seconds before the end does not win. 18 steps per second,
 smoothly interpolated; every snake has its own apple-pop scale, crashes and zone pulses are synthesized too.
+
+### 16 — Brick Breaker Race
+Four lanes with the same rainbow wall of 160 bricks and one ball each. Every hit breaks a brick, every 12 bricks a lane
+gets one more ball (up to 6), and the first ball out through the top wins. Axis-separated ball physics against the
+brick grid. The seed is picked so the race ends at ~14 s and the lane with the most bricks broken 4 s before the end
+loses. Each break plays a pentatonic note that rises as the ball gets closer to the top.
 
 ## How it works
 
