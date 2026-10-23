@@ -250,12 +250,16 @@ TOTAL = (3 * ROUND_BEATS + END_BEATS) * B                       # 20.0 s, exactl
 T_END = 3 * ROUND_BEATS * B
 FPS, SR = 30, 44100
 
+V2 = "--v2" in sys.argv                                         # second upload: a different set of moves
 def python_moves():
     """Python's three moves: random.choice with the first seed that gives three different moves (every viewer pick gets a mix)"""
-    s = 1
+    s = 1; first = None
     while True:
         r = random.Random(s); m = [r.choice(KINDS) for _ in range(3)]
-        if len(set(m)) == 3: return s, m
+        if len(set(m)) == 3:
+            if not V2: return s, m
+            if first is None: first = m
+            elif m != first and m[0] != first[0]: return s, m
         s += 1
 SEED, PY_MOVES = python_moves()
 WORDS = [("ROCK", KCOL["rock"], 120), ("PAPER", KCOL["paper"], 120), ("SCISSORS", KCOL["scissors"], 112), ("SHOOT!", YEL, 150)]
@@ -491,7 +495,7 @@ class Game:
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1 and sys.argv[1] == "video": render_video()
+    if len(sys.argv) > 1 and sys.argv[1] == "video": render_video("rps_vs_python_v2.mp4" if V2 else "rps_vs_python.mp4")
     elif len(sys.argv) > 1 and sys.argv[1] == "still":
         os.makedirs("chk", exist_ok=True)
         for ts in sys.argv[2:]: draw(short_state(float(ts)), float(ts)).save(f"chk/still_{ts}.png")

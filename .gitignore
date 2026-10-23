@@ -7,3 +7,4 @@ probe*.txt
 audio/
 music/
 tts_tmp/
+*.log

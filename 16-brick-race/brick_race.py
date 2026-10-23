@@ -26,6 +26,14 @@ SPLIT, MAXB = 12, 6                                # one extra ball every SPLIT 
 LCOL = [(255, 99, 99), (255, 184, 64), (80, 210, 120), (90, 160, 255)]
 BG, PANEL, PANEL2, BORDER = (13, 17, 23), (22, 27, 34), (30, 36, 44), (48, 54, 61)
 TEXT, MUTED, GREEN, YEL, BLUE, RED = (230, 237, 243), (139, 148, 158), (63, 185, 80), (255, 212, 59), (88, 166, 255), (248, 81, 73)
+ARENA, STROKE, CARD, SW, BALLF = (18, 23, 30), (8, 10, 16), (16, 20, 26), 5, (255, 255, 255)
+V2 = os.environ.get("BRICK_V2") == "1"              # variant 2: light theme, fewer rows, ~13 s
+if V2:
+    BG, PANEL, PANEL2, BORDER = (246, 247, 250), (255, 255, 255), (236, 239, 244), (206, 212, 222)
+    TEXT, MUTED, YEL = (22, 26, 34), (100, 108, 122), (240, 150, 0)
+    ARENA, STROKE, CARD, SW, BALLF = (255, 255, 255), (255, 255, 255), (255, 255, 255), 0, (34, 38, 48)
+    COLS, ROWS = 5, 26
+    SPEED, SPLIT, BH = 2100.0, 8, 42
 
 def lane_x(l): return AX0 + l * (LW + WALL)
 
@@ -87,9 +95,9 @@ def simulate(seed, T=24.0):
 def broken_at(hits, l, t): return sum(1 for h in hits if h[1] == l and h[0] <= t)
 
 def pick_seed():
-    for seed in range(1, 800):
+    for seed in (range(200, 1200) if V2 else range(1, 800)):
         fr, hits, w, tw, _ = simulate(seed, 17.0)
-        if w is None or not 13.0 <= tw <= 15.5: continue
+        if w is None or not ((8.6 <= tw <= 10.2) if V2 else (13.0 <= tw <= 15.5)): continue
         b4 = [broken_at(hits, l, tw - 4) for l in range(LANES)]
         if b4[w] < max(b4) and sorted(b4)[-1] - b4[w] >= 8: return seed
     raise RuntimeError("no seed")
@@ -102,8 +110,8 @@ if __name__ == "__main__" and len(sys.argv) > 1 and sys.argv[1] == "probe":
 
 SEED = pick_seed()
 FR, HITS, WIN, T_WIN, SPAWNS = simulate(SEED, 24.0)
-T_END = T_WIN + 1.4
-TOTAL = T_END + 4.2
+T_END = T_WIN + (1.1 if V2 else 1.4)
+TOTAL = T_END + (3.3 if V2 else 4.2)
 T_LOOP = TOTAL - 0.6
 NF = int(TOTAL * FPS)
 NB = ROWS * COLS
@@ -141,7 +149,7 @@ def draw_arena(t):
     im = Image.new("RGBA", (w, h), (18, 23, 30, 255)); d = ImageDraw.Draw(im)
     for l in range(LANES):
         lx = (lane_x(l) - AX0) * S2
-        d.rectangle([lx, 0, lx + LW * S2, h], fill=mix((18, 23, 30), LCOL[l], 0.06))
+        d.rectangle([lx, 0, lx + LW * S2, h], fill=mix(ARENA, LCOL[l], 0.06))
         if l > 0: d.rectangle([lx - WALL * S2, 0, lx, h], fill=(40, 46, 56))
         # exit marker at the top of each lane
         d.rectangle([lx, 0, lx + LW * S2, 4 * S2], fill=mix(LCOL[l], (255, 255, 255), 0.3))
@@ -165,10 +173,10 @@ def draw_arena(t):
             for j in range(5, 0, -1):
                 if fi - j < 0 or bi >= len(FR[fi - j][0][l]): continue
                 x, y = FR[fi - j][0][l][bi]; a = 1 - j / 6; rr = R * (0.4 + 0.5 * a) * S2
-                d.ellipse([(x - AX0) * S2 - rr, (y - AY0) * S2 - rr, (x - AX0) * S2 + rr, (y - AY0) * S2 + rr], fill=mix((18, 23, 30), (255, 255, 255), 0.35 * a) + (255,))
+                d.ellipse([(x - AX0) * S2 - rr, (y - AY0) * S2 - rr, (x - AX0) * S2 + rr, (y - AY0) * S2 + rr], fill=mix(ARENA, BALLF, 0.35 * a) + (255,))
             x, y = pos[l][bi]; rr = R * S2
             if y < AY0 - R: continue
-            d.ellipse([(x - AX0) * S2 - rr, (y - AY0) * S2 - rr, (x - AX0) * S2 + rr, (y - AY0) * S2 + rr], fill=(255, 255, 255), outline=LCOL[l], width=3 * S2)
+            d.ellipse([(x - AX0) * S2 - rr, (y - AY0) * S2 - rr, (x - AX0) * S2 + rr, (y - AY0) * S2 + rr], fill=BALLF, outline=LCOL[l], width=3 * S2)
     return im.reduce(S2).convert("RGB")
 
 def burst(d, t, t0, cx, cy, seed, cols, n=40):
@@ -183,7 +191,7 @@ def burst(d, t, t0, cx, cy, seed, cols, n=40):
 def text2(d, y, parts, fnt, cx=W / 2):
     tot = sum(d.textlength(s, font=fnt) for s, _ in parts); x = cx - tot / 2
     for s, c in parts:
-        d.text((x, y), s, font=fnt, fill=c, anchor="lm", stroke_width=5, stroke_fill=(8, 10, 16)); x += d.textlength(s, font=fnt)
+        d.text((x, y), s, font=fnt, fill=c, anchor="lm", stroke_width=SW, stroke_fill=STROKE); x += d.textlength(s, font=fnt)
 
 CODE = ["x += vx * dt",
         "if brick_at(x + r * sign(vx), y):",
@@ -209,42 +217,42 @@ def render(fi):
         d.rounded_rectangle([cx - wd / 2, cy - hh / 2, cx + wd / 2, cy + hh / 2], radius=hh / 2, fill=mix(BG, col, 0.22), outline=YEL if win else col, width=5 if win else 3)
         d.ellipse([cx - wd / 2 + 12, cy - 22, cx - wd / 2 + 56, cy + 22], fill=col)
         d.text((cx - wd / 2 + 34, cy + 1), str(l + 1), font=BLACK(30), fill=(20, 22, 28), anchor="mm")
-        d.text((cx + wd / 2 - 18, cy), f"{pct}%", font=mono(30), fill=(255, 255, 255) if not lost else MUTED, anchor="rm")
+        d.text((cx + wd / 2 - 18, cy), f"{pct}%", font=mono(30), fill=TEXT if not lost else MUTED, anchor="rm")
         nb = len(FR[min(int(t * FPS), len(FR) - 1)][0][l])
         d.text((cx - 4, cy), f"x{nb}", font=BOLD(24), fill=col if not lost else MUTED, anchor="mm")
     for (ts, l) in SPAWNS:
         if 0 <= t - ts < 0.7 and ts < T_WIN:
             a = 1 - (t - ts) / 0.7
-            d.text((lane_x(l) + LW / 2, AY1 - 70 - 60 * (1 - a)), "+1 BALL", font=BLACK(34), fill=mix(BG, LCOL[l], a), anchor="mm", stroke_width=4, stroke_fill=(8, 10, 16))
+            d.text((lane_x(l) + LW / 2, AY1 - 70 - 60 * (1 - a)), "+1 BALL", font=BLACK(34), fill=mix(BG, LCOL[l], a), anchor="mm", stroke_width=min(4, SW), stroke_fill=STROKE)
     if t < T_WIN:
         d.text((W / 2, 1600), "First ball out of the top wins", font=SEMI(34), fill=MUTED, anchor="mm")
     if T_WIN <= t < T_END + 0.4:
         kb = ease_back((t - T_WIN) / 0.35)
         if kb > 0.02:
             cy = (AY0 + AY1) / 2
-            d.rounded_rectangle([W / 2 - 360 * kb, cy - 100 * kb, W / 2 + 360 * kb, cy + 100 * kb], radius=30 * kb, fill=(16, 20, 26), outline=LCOL[WIN], width=6)
+            d.rounded_rectangle([W / 2 - 360 * kb, cy - 100 * kb, W / 2 + 360 * kb, cy + 100 * kb], radius=30 * kb, fill=CARD, outline=LCOL[WIN], width=6)
             if kb > 0.5:
                 text2(d, cy - 30, [("LANE ", TEXT), (str(WIN + 1), LCOL[WIN])], BLACK(92 * kb))
-                d.text((W / 2, cy + 52), "BROKE THROUGH!", font=BLACK(52 * kb), fill=YEL, anchor="mm", stroke_width=4, stroke_fill=(8, 10, 16))
+                d.text((W / 2, cy + 52), "BROKE THROUGH!", font=BLACK(52 * kb), fill=YEL, anchor="mm", stroke_width=min(4, SW), stroke_fill=STROKE)
         burst(d, t, T_WIN, lane_x(WIN) + LW / 2, AY0 + 10, 9, [YEL, LCOL[WIN], (255, 255, 255), BLUE])
     if t >= T_END: end_card(img, t, t - T_END)
     return np.asarray(img)
 
 def end_card(img, t, et):
     k = min(1.0, et / 0.3)
-    img.paste(Image.blend(img, Image.new("RGB", img.size, (8, 10, 14)), 0.82 * k))
+    img.paste(Image.blend(img, Image.new("RGB", img.size, BG), 0.85 * k))
     d = ImageDraw.Draw(img)
     kp = ease_out(et / 0.35); y0 = 360 + (1 - kp) * 120
-    d.rounded_rectangle([40, y0, 940, y0 + 1200], radius=34, fill=(16, 20, 26), outline=BORDER, width=3)
+    d.rounded_rectangle([40, y0, 940, y0 + 1200], radius=34, fill=CARD, outline=BORDER, width=3)
     if et < 0.12: return
     k1 = ease_back((et - 0.1) / 0.4)
     d.text((490, y0 + 100), "DID YOU PICK", font=BLACK(84 * k1), fill=TEXT, anchor="mm")
     text2(d, y0 + 210, [("LANE ", TEXT), (str(WIN + 1) + "?", LCOL[WIN])], BLACK(110 * k1), cx=490)
     k3 = ease_out((et - 0.7) / 0.3)
     if k3 > 0:
-        d.text((490, y0 + 360), "Comment your lane", font=BLACK(60), fill=mix((16, 20, 26), YEL, k3), anchor="mm")
+        d.text((490, y0 + 360), "Comment your lane", font=BLACK(60), fill=mix(CARD, YEL, k3), anchor="mm")
         ay = y0 + 425 + 10 * math.sin(t * 8)
-        d.polygon([(470, ay), (510, ay), (490, ay + 26)], fill=mix((16, 20, 26), YEL, k3))
+        d.polygon([(470, ay), (510, ay), (490, ay + 26)], fill=mix(CARD, YEL, k3))
     k4 = ease_out((et - 1.1) / 0.3)
     if k4 > 0:
         bx0, by0 = 70, y0 + 500
@@ -253,12 +261,12 @@ def end_card(img, t, et):
         for li, ln in enumerate(CODE):
             x = bx0 + 24; y = by0 + 80 + li * 48
             for m in re.finditer(r'(\bif\b)|(\w+(?=\())|(.)', ln):
-                s = m.group(0); col = (255, 123, 114) if m.group(1) else (210, 168, 255) if m.group(2) else TEXT
+                s = m.group(0); col = (255, 123, 114) if m.group(1) else (210, 168, 255) if m.group(2) else (230, 237, 243)
                 d.text((x, y), s, font=mono(26), fill=mix((10, 13, 18), col, k4), anchor="lm"); x += d.textlength(s, font=mono(26))
     k5 = ease_out((et - 1.6) / 0.3)
     if k5 > 0:
-        d.text((490, y0 + 970), "Full code: link in profile", font=BOLD(40), fill=mix((16, 20, 26), TEXT, k5), anchor="mm")
-        text2(d, y0 + 1085, [("PYTHONIC ", mix((16, 20, 26), BLUE, k5)), ("LIFE", mix((16, 20, 26), YEL, k5))], BLACK(68), cx=490)
+        d.text((490, y0 + 970), "Full code: link in profile", font=BOLD(40), fill=mix(CARD, TEXT, k5), anchor="mm")
+        text2(d, y0 + 1085, [("PYTHONIC ", mix(CARD, BLUE, k5)), ("LIFE", mix(CARD, YEL, k5))], BLACK(68), cx=490)
 
 
 # ------------------------------------------------------------------ audio
@@ -340,5 +348,5 @@ if __name__ == "__main__":
     with wave.open("brick_audio.wav", "wb") as wf:
         wf.setnchannels(1); wf.setsampwidth(2); wf.setframerate(SR); wf.writeframes((a * 32767).astype(np.int16).tobytes())
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", "brick_noaudio.mp4", "-i", "brick_audio.wav", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k",
-                    "-shortest", "brick_race.mp4"], check=True)
+                    "-shortest", "brick_race_v2.mp4" if V2 else "brick_race.mp4"], check=True)
     print("done", round(TOTAL, 1))
