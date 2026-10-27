@@ -7,7 +7,8 @@ import math, os, random, sys
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "shared"))
 from race_kit import *
 
-TH = DARK
+V2 = os.environ.get("V2") == "1"                    # variant 2: light theme, another seed
+TH = LIGHT if V2 else DARK
 CX, CY, RA = 540, 1010, 450                # arena circle
 N, RB = 8, 30
 COLS = [(255, 99, 99), (255, 159, 67), (255, 212, 59), (63, 200, 90), (60, 200, 200), (70, 150, 255), (170, 120, 255), (255, 110, 200)]
@@ -60,7 +61,7 @@ def simulate(seed, T=16.0):
     return frames, pops, hits, winner, t_win
 
 def pick_seed():
-    for seed in range(1, 900):
+    for seed in (range(300, 1500) if V2 else range(1, 900)):
         fr, pops, hits, w, tw = simulate(seed, 12.0)
         if w is None or not 8.0 <= tw <= 10.0 or len(pops) != N - 1: continue
         ts = [p[0] for p in pops]
@@ -81,11 +82,11 @@ def draw_arena(t):
     w = (box[2] - box[0]) * S; im = BGI.crop(box).resize((w, w), Image.NEAREST); d = ImageDraw.Draw(im)
     P = lambda x, y: ((x - box[0]) * S, (y - box[1]) * S)
     c = P(CX, CY)
-    d.ellipse([c[0] - RA * S, c[1] - RA * S, c[0] + RA * S, c[1] + RA * S], fill=TH["arena"], outline=(255, 212, 59), width=8 * S)
+    d.ellipse([c[0] - RA * S, c[1] - RA * S, c[0] + RA * S, c[1] + RA * S], fill=TH["arena"], outline=(240, 150, 0) if V2 else (255, 212, 59), width=8 * S)
     tb = min(t, T_WIN); ang, L = blade(tb) if t < T_WIN else blade(T_WIN)
     for arm in (0, math.pi):
         a = ang + arm; ex, ey = P(CX + L * math.cos(a), CY + L * math.sin(a))
-        d.line([c, (ex, ey)], fill=(200, 206, 220), width=16 * S)
+        d.line([c, (ex, ey)], fill=(80, 86, 100) if V2 else (200, 206, 220), width=16 * S)
         n = int(L / 28)
         for k in range(1, n + 1):                                          # spikes
             r = k * L / n; px, py = P(CX + r * math.cos(a), CY + r * math.sin(a))
@@ -144,4 +145,4 @@ def audio():
 
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "still": stills(render, sys.argv[2:]); sys.exit()
-    encode(render, TOTAL, audio(), "last_ball.mp4"); print("done", round(TOTAL, 1))
+    encode(render, TOTAL, audio(), "last_ball_v2.mp4" if V2 else "last_ball.mp4"); print("done", round(TOTAL, 1))

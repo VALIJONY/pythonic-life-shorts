@@ -7,7 +7,8 @@ import math, os, random, sys
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "shared"))
 from race_kit import *
 
-TH = DARK
+V2 = os.environ.get("V2") == "1"                    # variant 2: light theme, another seed
+TH = LIGHT if V2 else DARK
 AX0, AX1 = 60, 1020
 FLOOR_Y = 1300
 NT = 14; TW = (AX1 - AX0) / NT                      # tiles
@@ -55,7 +56,7 @@ def simulate(seed, T=15.0):
     return frames, events, winner, t_win
 
 def pick_seed():
-    for seed in range(1, 2000):
+    for seed in (range(300, 3000) if V2 else range(1, 2000)):
         r = simulate(seed, 12.0)
         if r is None: continue
         fr, ev, w, tw = r
@@ -150,4 +151,4 @@ def audio():
 
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "still": stills(render, sys.argv[2:]); sys.exit()
-    encode(render, TOTAL, audio(), "crumbling_floor.mp4"); print("done", round(TOTAL, 1))
+    encode(render, TOTAL, audio(), "crumbling_floor_v2.mp4" if V2 else "crumbling_floor.mp4"); print("done", round(TOTAL, 1))

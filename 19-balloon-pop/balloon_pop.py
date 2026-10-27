@@ -6,6 +6,7 @@ import math, os, random, sys
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "shared"))
 from race_kit import *
 
+V2 = os.environ.get("V2") == "1"                    # variant 2: another seed
 TH = LIGHT
 CENT = [(300, 650), (760, 650), (300, 1020), (760, 1020), (300, 1390), (760, 1390)]
 R0, RPOP, RB = 125.0, 178.0, 17
@@ -43,7 +44,7 @@ def simulate(seed, T=14.0):
 def radius_at(fr, k, t): return fr[min(int(t * FPS), len(fr) - 1)][k][2]
 
 def pick_seed():
-    for seed in range(1, 3000):
+    for seed in (range(500, 4000) if V2 else range(1, 3000)):
         fr, hits, w, tw = simulate(seed, 12.0)
         if w is None or not 8.6 <= tw <= 10.0: continue
         rs = sorted(fr[min(int(tw * FPS), len(fr) - 1)][k][2] for k in range(6))
@@ -121,4 +122,4 @@ def audio():
 
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "still": stills(render, sys.argv[2:]); sys.exit()
-    encode(render, TOTAL, audio(), "balloon_pop.mp4"); print("done", round(TOTAL, 1))
+    encode(render, TOTAL, audio(), "balloon_pop_v2.mp4" if V2 else "balloon_pop.mp4"); print("done", round(TOTAL, 1))
