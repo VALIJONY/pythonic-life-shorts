@@ -5,7 +5,7 @@ Every frame is drawn with NumPy, Pillow and OpenCV, and every sound is synthesiz
 
 Code behind the **Pythonic Life** YouTube channel.
 
-![Python](https://img.shields.io/badge/100%25-Python-3776AB?logo=python&logoColor=white) ![Shorts](https://img.shields.io/badge/videos-21-red) ![License](https://img.shields.io/badge/license-MIT-green)
+![Python](https://img.shields.io/badge/100%25-Python-3776AB?logo=python&logoColor=white) ![Shorts](https://img.shields.io/badge/videos-22-red) ![License](https://img.shields.io/badge/license-MIT-green)
 
 | **01 · Sorting Race** | **02 · Can It Escape?** | **03 · Color War** |
 |:---:|:---:|:---:|
@@ -22,6 +22,7 @@ Code behind the **Pythonic Life** YouTube channel.
 | <img src="assets/rps-vs-python.gif" width="270" alt="Rock Paper Scissors vs Python"> | <img src="assets/triple-ring-escape.gif" width="270" alt="Triple Ring Escape"> | <img src="assets/snake-battle.gif" width="270" alt="Snake Battle Royale"> |
 | <img src="assets/brick-race.gif" width="270" alt="Brick Breaker Race"> | <img src="assets/last-ball.gif" width="270" alt="Last Ball Standing"> | <img src="assets/crumbling-floor.gif" width="270" alt="Crumbling Floor"> |
 | <img src="assets/balloon-pop.gif" width="270" alt="Balloon Pop"> | <img src="assets/multiplier-gates.gif" width="270" alt="Multiplier Gates"> | <img src="assets/domino-race.gif" width="270" alt="Domino Race"> |
+| <img src="assets/maze-escape.gif" width="270" alt="Maze Escape"> | &nbsp; | &nbsp; |
 | <sub>6 marbles race down a course and the video loops</sub> | <sub>Boss: sort 1,200 files in 10 min. Python: a fraction of a second</sub> | &nbsp; |
 
 ## Quick start
@@ -60,6 +61,7 @@ cd 18-crumbling-floor && python3 crumbling_floor.py
 cd 19-balloon-pop && python3 balloon_pop.py
 cd 20-multiplier-gates && python3 multiplier_gates.py
 cd 21-domino-race && python3 domino_race.py
+cd 22-maze-escape && python3 maze_escape.py
 ```
 
 ## The videos
@@ -186,6 +188,11 @@ by chance: good gates clone them, bad gates delete them. Most balls in the bucke
 Four tracks of dominoes with different heights and gaps. Each domino is a thin rod tipping over its front edge
 (theta'' = 3g/2h * sin(theta)); when its top touches the next one, the next starts falling with part of its speed.
 First bell to ring wins. Light theme, ~13 s.
+
+### 22 — Maze Escape
+Four balls start in the middle of a random maze (depth-first perfect maze plus a few loops) that slowly rotates.
+Gravity is applied in the maze frame, balls bounce off the wall segments and each other; first ball out of the exit wins.
+Light theme, ~14 s.
 
 Light-theme variants: `V2=1 python3 last_ball.py`, `V2=1 python3 crumbling_floor.py`, `V2=1 python3 balloon_pop.py` (new seeds).
 

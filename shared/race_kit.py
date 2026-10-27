@@ -53,7 +53,7 @@ def chips(d, th, items, t, t_win, win, y=286, per_row=4, w=232, gap=14):
                             outline=th["title2"] if iswin else cc, width=5 if iswin else 3)
         d.ellipse([cx - wd / 2 + 10, cy - 21, cx - wd / 2 + 52, cy + 21], fill=cc)
         d.text((cx - wd / 2 + 31, cy + 1), lab, font=BLACK(26), fill=(20, 22, 28), anchor="mm")
-        d.text((cx + wd / 2 - 18, cy), val, font=mono(28), fill=th["muted"] if dead else th["text"], anchor="rm")
+        d.text((cx + wd / 2 - 18, cy), val, font=mono(28) if len(val) < 6 else BOLD(24), fill=th["muted"] if dead else th["text"], anchor="rm")
         if not alive and not iswin: d.line([(cx - wd / 2 + 60, cy), (cx + wd / 2 - 12, cy)], fill=RED, width=4)
 
 def burst(d, t, t0, cx, cy, seed, cols, n=40, life=1.0):
